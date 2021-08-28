@@ -15,6 +15,7 @@ import IconeSeta from '../../assets/seta-diagonal-grande-fina.png';
 
 
 import Api from '../../config/Axios';
+import CabecalhoPostagens from './CabecalhoPostagens';
 
 
 const FeedPostagens = () => {
@@ -43,21 +44,26 @@ const FeedPostagens = () => {
         );
     }
 
-    return <FeedPostagensMain>
-        {  
-            [...Array(quantRows)].map((element, index) => {
-                const inicioRow  = index * quantPostagensPorRow;
-                const fimRow = (index+1) * quantPostagensPorRow;
-                const aux = [...postagens];
-                
-                return (<PostagensRow key={index}>
-                {
-                
-                    aux.slice(inicioRow, fimRow)
+    return (
+        <>
+            <CabecalhoPostagens />
+            <FeedPostagensMain>
+                {  
+                    [...Array(quantRows)].map((element, index) => {
+                        const inicioRow  = index * quantPostagensPorRow;
+                        const fimRow = (index+1) * quantPostagensPorRow;
+                        const aux = [...postagens];
+
+                        return (<PostagensRow key={index}>
+                        {
+                        
+                            aux.slice(inicioRow, fimRow)
+                        }
+                    </PostagensRow>)})
                 }
-            </PostagensRow>)})
-        }
-    </FeedPostagensMain>;
+            </FeedPostagensMain>
+        </>
+    );
 };
 
 export default FeedPostagens;

@@ -1,15 +1,13 @@
 import './App.css';
 
 import Header from "./components/Header";
-import CabecalhoPostagens from "./components/CabecalhoPostagens";
-import FeedPostagens from "./components/FeedPostagens";
+import Routes from './routes';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <CabecalhoPostagens />
-      <FeedPostagens />
+      <Routes />
     </div>
   );
 }

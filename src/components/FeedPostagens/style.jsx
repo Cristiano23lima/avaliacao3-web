@@ -22,7 +22,7 @@ export const Postagem = styled.div`
     width: 350px;
     display: flex;
     flex-direction: column;
-    margin: 13px;
+    margin: 20px;
 `;
 
 export const ImagemPostagem = styled.img`
