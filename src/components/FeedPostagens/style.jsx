@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
 
@@ -13,8 +11,11 @@ export const FeedPostagensMain = styled.div`
 `;
 
 export const PostagensRow = styled.div`
+    width: 100%;
+    justify-content: center;
     display: flex;
     flex-direction: row;
+    word-break: break-word;
 `;
 
 export const Postagem = styled.div`
@@ -45,7 +46,7 @@ export const LinkPostagem = styled.a`
     display: flex;
     justify-content: space-between;
     transition: opacity 0.4s;
-    
+
     :hover{
         opacity: 0.8;
     }

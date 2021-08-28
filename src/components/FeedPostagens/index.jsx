@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { 
     FeedPostagensMain,
@@ -14,42 +14,49 @@ import Imagem from '../../assets/blog.jpg';
 import IconeSeta from '../../assets/seta-diagonal-grande-fina.png';
 
 
+import Api from '../../config/Axios';
+
+
 const FeedPostagens = () => {
+    const quantPostagensPorRow = 4;
+    const [postagens, setPostagens] = useState([]);
+    const [quantRows, setQuantRows] = useState(0);
+
+    useEffect(() => {
+        buscarPostagens();
+    }, []);
+    
+    const buscarPostagens = () => {
+        Api.get("/posts/buscar-posts").then(
+            res => {
+                setQuantRows(Math.ceil(res.data.length/quantPostagensPorRow));
+                setPostagens(res.data.map(res => (<Postagem key={res.id}>
+                        <ImagemPostagem src={Imagem} alt="Teste" />
+                        <TituloPostagem>CMS system from a business perspective</TituloPostagem>
+                        <LinkPostagem href="#">
+                            <span>Ver Postagem</span>
+                            <IconeLink src={IconeSeta} />
+                        </LinkPostagem>
+                    </Postagem>
+                )));
+            }
+        );
+    }
+
     return <FeedPostagensMain>
-        <PostagensRow>
-            <Postagem>
-                <ImagemPostagem src={Imagem} alt="Teste" />
-                <TituloPostagem>CMS system from a business perspective</TituloPostagem>
-                <LinkPostagem href="#">
-                    <span>Ver Postagem</span>
-                    <IconeLink src={IconeSeta} />
-                </LinkPostagem>
-            </Postagem>
-            <Postagem>
-                <ImagemPostagem src={Imagem} alt="Teste" />
-                <TituloPostagem>CMS system from a business perspective</TituloPostagem>
-                <LinkPostagem href="#">
-                    <span>Ver Postagem</span>
-                    <IconeLink src={IconeSeta} />
-                </LinkPostagem>
-            </Postagem>
-            <Postagem>
-                <ImagemPostagem src={Imagem} alt="Teste" />
-                <TituloPostagem>CMS system from a business perspective</TituloPostagem>
-                <LinkPostagem href="#">
-                    <span>Ver Postagem</span>
-                    <IconeLink src={IconeSeta} />
-                </LinkPostagem>
-            </Postagem>
-            <Postagem>
-                <ImagemPostagem src={Imagem} alt="Teste" />
-                <TituloPostagem>CMS system from a business perspective</TituloPostagem>
-                <LinkPostagem href="#">
-                    <span>Ver Postagem</span>
-                    <IconeLink src={IconeSeta} />
-                </LinkPostagem>
-            </Postagem>
-        </PostagensRow>
+        {  
+            [...Array(quantRows)].map((element, index) => {
+                const inicioRow  = index * quantPostagensPorRow;
+                const fimRow = (index+1) * quantPostagensPorRow;
+                const aux = [...postagens];
+                
+                return (<PostagensRow key={index}>
+                {
+                
+                    aux.slice(inicioRow, fimRow)
+                }
+            </PostagensRow>)})
+        }
     </FeedPostagensMain>;
 };
 
