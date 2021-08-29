@@ -35,7 +35,7 @@ const FeedPostagens = () => {
                 setPostagens(res.data.map(res => (<Postagem key={res.id}>
                         <ImagemPostagem src={Imagem} alt="Teste" />
                         <TituloPostagem>{res.titulo}</TituloPostagem>
-                        <LinkPostagem href="#">
+                        <LinkPostagem href={"/ver-post?idPost="+res.id}>
                             <span>Ver Postagem</span>
                             <IconeLink src={IconeSeta} />
                         </LinkPostagem>

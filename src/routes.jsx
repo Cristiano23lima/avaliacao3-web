@@ -3,6 +3,7 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Autenticacao from './components/Autenticacao';
 import CadastroPostagem from './components/CadastrarPostagem';
 import FeedPostagens from './components/FeedPostagens';
+import VerPostagem from './components/VerPostagem';
 import { isAuthenticated } from './config/auth';
 
 
@@ -36,6 +37,7 @@ const Routes = () => {
     return (<BrowserRouter>
         <Route component={FeedPostagens} path="/"  exact/>
         <RouteAuth component={Autenticacao} path="/login"/>
+        <Route component={VerPostagem} path="/ver-post" />
         <PrivateRoute component={CadastroPostagem} path="/postagem-salvar" />
     </BrowserRouter>);
 }
