@@ -16,6 +16,7 @@ import IconeSeta from '../../assets/seta-diagonal-grande-fina.png';
 
 import Api from '../../config/Axios';
 import CabecalhoPostagens from './CabecalhoPostagens';
+import { withRouter } from 'react-router-dom';
 
 
 const FeedPostagens = () => {
@@ -33,7 +34,7 @@ const FeedPostagens = () => {
                 setQuantRows(Math.ceil(res.data.length/quantPostagensPorRow));
                 setPostagens(res.data.map(res => (<Postagem key={res.id}>
                         <ImagemPostagem src={Imagem} alt="Teste" />
-                        <TituloPostagem>CMS system from a business perspective</TituloPostagem>
+                        <TituloPostagem>{res.titulo}</TituloPostagem>
                         <LinkPostagem href="#">
                             <span>Ver Postagem</span>
                             <IconeLink src={IconeSeta} />
@@ -66,4 +67,4 @@ const FeedPostagens = () => {
     );
 };
 
-export default FeedPostagens;
+export default withRouter(FeedPostagens);

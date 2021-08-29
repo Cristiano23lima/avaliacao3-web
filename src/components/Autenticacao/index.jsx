@@ -3,23 +3,29 @@ import { AutenticacaoMain, ButtonForm, FormAutenticacao, FormGroup, InputForm, L
 
 import Api from '../../config/Axios';
 
+import {login} from '../../config/auth.js';
+import { withRouter, useHistory } from 'react-router-dom';
+
 const Autenticacao = () => {
     const [registrar, setRegistrar] = useState(false);
-    const [login, setLogin] = useState({});
+    const [loginBlog, setLoginBlog] = useState({});
     const [registro, setRegistro] = useState({});
     const [msgError, setMsgError] = useState(null);
     const [msgSuccess, setMsgSuccess] = useState(null);
     const [enviando, setEnviando] = useState(false);
+    const history = useHistory();
     
     const efetuarLogin = () => {
-        if(!!login.email && !!login.senha){
+        if(!!loginBlog.email && !!loginBlog.senha){
             setEnviando(true);
-            Api.post('/login', login).then(
+            Api.post('/login', loginBlog).then(
                 res => {
-                    setLogin({})
+                    setLoginBlog({})
                     setMsgSuccess(null);
                     setMsgError(null)
                     setEnviando(false);
+                    login(res.data.token);
+                    history.push("/")
                 },
                 err => {
                     setMsgError(err?.response?.data?.mensagem);
@@ -36,7 +42,9 @@ const Autenticacao = () => {
                 res => {
                     setEnviando(false);
                     setRegistro({});
+                    setMsgError(null)
                     setMsgSuccess("Cadastro efetuado com sucesso");
+                    setRegistrar(false);
                 },
                 err => {
                     setEnviando(false);
@@ -72,8 +80,8 @@ const Autenticacao = () => {
                         {!!msgSuccess ? (<MsgSuccess>{msgSuccess}</MsgSuccess>) : null}
                         {!!msgError ? (<MsgError>{msgError}</MsgError>) : null}
                         <FormGroup>
-                            <InputForm placeholder="Coloque seu email" required type="email" onChange={(e) => setLogin({...login, email: e.target.value}) } value={login.email ?? ""}></InputForm>
-                            <InputForm placeholder="Coloque sua senha" required type="password" onChange={(e) => setLogin({...login, senha: e.target.value}) } value={login.senha ?? ""}></InputForm>
+                            <InputForm placeholder="Coloque seu email" required type="email" onChange={(e) => setLoginBlog({...loginBlog, email: e.target.value}) } value={loginBlog.email ?? ""}></InputForm>
+                            <InputForm placeholder="Coloque sua senha" required type="password" onChange={(e) => setLoginBlog({...loginBlog, senha: e.target.value}) } value={loginBlog.senha ?? ""}></InputForm>
                             <ButtonForm type="button" onClick={() => efetuarLogin()} disabled={enviando}>Entrar</ButtonForm>
                         </FormGroup>
                         <LinkPara onClick={() => setRegistrar(true)}>Não tem uma conta? Clique aqui</LinkPara>
@@ -84,4 +92,4 @@ const Autenticacao = () => {
     )
 };
 
-export default Autenticacao;
+export default withRouter(Autenticacao);
