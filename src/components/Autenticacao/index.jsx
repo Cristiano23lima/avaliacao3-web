@@ -25,7 +25,7 @@ const Autenticacao = () => {
                     setMsgError(null)
                     setEnviando(false);
                     login(res.data.token);
-                    history.push("/")
+                    window.location.href = "/";
                 },
                 err => {
                     setMsgError(err?.response?.data?.mensagem);

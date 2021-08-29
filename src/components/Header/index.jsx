@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {Cabecalho, Menu} from './style';
 
-import {Cabecalho, IconeMenu} from './style';
+import { LinkPara } from '../Autenticacao/style';
 
-import LogoMenu from '../../assets/menu.png';
+import { isAuthenticated, logout } from '../../config/auth';
 
 const Header = () => {
     return <Cabecalho>
         <h3>Blog Descomplica</h3>
         
-        <IconeMenu src={LogoMenu}/>
+        <Menu>
+            <LinkPara href="/">Inicial</LinkPara>
+
+            {isAuthenticated() ? (
+                <>
+                    <LinkPara href="/postagem-salvar">Cadastrar Postagem</LinkPara>
+                    <LinkPara href='/' onClick={() => logout()}>Sair</LinkPara>
+                </>
+            ) :  <LinkPara href='/login'>Login</LinkPara>
+        }
+        </Menu>
     </Cabecalho>
 };
 

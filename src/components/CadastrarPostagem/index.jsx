@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { CadastrarPostagemMain, ButtonForm, FormPostagem, FormGroup, InputForm, LinkPara, MsgError, MsgSuccess, TituloForm, TextAreaForm } from './style';
 
 import Api from '../../config/Axios';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 
 const CadastroPostagem = () => {
     const [msgError, setMsgError] = useState(null);
     const [msgSuccess, setMsgSuccess] = useState(null);
     const [enviando, setEnviando] = useState(false);
     const [postagem, setPostagem] = useState({});
-    
+    const history = useHistory();
+
     const efetuarCadastroPostagem = () => {
         if(!!postagem.titulo && !!postagem.descricao){
             setEnviando(true);
@@ -40,7 +41,7 @@ const CadastroPostagem = () => {
                     <TextAreaForm placeholder="Descrição da postagem" onChange={(e) => setPostagem({...postagem, descricao: e.target.value})} value={postagem.descricao ?? ""}></TextAreaForm>
                     <ButtonForm type="button" onClick={() => efetuarCadastroPostagem()} disabled={enviando}>Salvar</ButtonForm>
                 </FormGroup>
-                <LinkPara>Voltar</LinkPara>
+                <LinkPara onClick={() => history.push("/")}>Voltar</LinkPara>
             </FormPostagem>
         </CadastrarPostagemMain>
     )
