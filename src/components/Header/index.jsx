@@ -9,7 +9,7 @@ const Header = () => {
     return <Cabecalho>
         <h3>Blog Descomplica</h3>
         
-        <Menu>
+        <Menu autenticado={isAuthenticated()}>
             <LinkPara href="/">Inicial</LinkPara>
 
             {isAuthenticated() ? (

@@ -5,6 +5,11 @@ export const Cabecalho = styled.div`
     flex-direction: row;
     justify-content: space-between;
     padding: 50px;
+
+    @media(max-width: 720px){
+        display: flex;
+        flex-direction: column;
+    }
 `;
 
 export const IconeMenu = styled.img`
@@ -13,8 +18,7 @@ export const IconeMenu = styled.img`
 `;
 
 export const Menu = styled.div`
-    max-width: 250px;
-    min-width: 100px;
+    width: ${props => props.autenticado ? '250px' : '100px'};
     display: flex;
     justify-content: space-between;
 `;
